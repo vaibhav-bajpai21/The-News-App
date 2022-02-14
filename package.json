@@ -1,0 +1,15 @@
+{
+  "name": "news-app",
+  "version": "1.0.0",
+  "description": "Technical Assignment for Node.js Developer",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Vaibhav Bajpai",
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "express": "^4.17.2",
+    "mongoose": "^6.2.1"
+  }
+}
