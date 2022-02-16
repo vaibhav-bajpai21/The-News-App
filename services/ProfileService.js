@@ -1,15 +1,19 @@
 const UserModel = require("../db/models/UserModel");
 const Promise = require("bluebird");
-const _ = require("lodash")
+const _ = require("lodash");
+const fs = require("fs");
 
 class ProfileService {
     constructor() {
         this.userModelInst = new UserModel();
     }
 
-    async saveUserInfo(reqQuery) {
+    async saveUserInfo(reqQuery, files) {
         try {
-            let dbResult = await this.userModelInst.saveRecord({ userName: reqQuery.userName }, reqQuery);
+            let profileObject = _.find(files, (file) => (file.fieldname === "profile_picture"));
+            let profilePicture = fs.readFileSync(profileObject.path);
+            reqQuery.profileImage = profilePicture;
+            let dbResult = await this.userModelInst.saveRecord({ email: reqQuery.email }, reqQuery);
             let response = _.pick(dbResult, ["email", "password", "gender", "language"]);
             response.user_name = dbResult.userName;
             response.phone_number = dbResult.phoneNumber;

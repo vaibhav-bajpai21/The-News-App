@@ -1,5 +1,8 @@
 const FeedModel = require("../db/models/FeedModel");
 const Promise = require("bluebird");
+const _ = require("lodash");
+const fs = require("fs");
+
 class FeedService {
     constructor() {
         this.feedModelInst = new FeedModel()
@@ -24,13 +27,43 @@ class FeedService {
                 sortOptions.sortOrder = reqQuery.sort_order || "desc";
             }
             let feedArticles = await this.feedModelInst.findAllFeeds(filter, sortOptions);
+            let response = [];
+            _.forEach(feedArticles, (feedArticle) => {
+                let object = {};
+                object.headline = feedArticle.headline;
+                object.category = feedArticle.category;
+                object.author_name = feedArticle.authorName;
+                object.thumbnail_image = feedArticle.thumbnailImage;
+                response.push(object);
+            });
             return Promise.resolve({
-                data: feedArticles,
+                data: response,
                 status: "Success"
             });
         }
         catch (err) {
             console.log("----error in getAllFeedArticles----", err);
+            return Promise.reject({
+                status: "Error",
+                message: "DB Error"
+            })
+        }
+    }
+
+    async createArticle(requestObject, files) {
+        try {
+            let thumbnailObject = _.find(files, (file) => (file.fieldname === "thumbnail"));
+            let thumbnail = fs.readFileSync(thumbnailObject.path);
+            requestObject.thumbnailImage = thumbnail;
+            let feedArticles = await this.feedModelInst.createArticle(requestObject);
+            let response = _.pick(feedArticles, ["headline", "category", "authorName", "createdAt"]);
+            return Promise.resolve({
+                data: response,
+                status: "Success"
+            });
+        }
+        catch (err) {
+            console.log("----error in createArticle----", err);
             return Promise.reject({
                 status: "Error",
                 message: "DB Error"

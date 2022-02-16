@@ -5,7 +5,7 @@ function loadRoutes(app) {
         const feedServiceInst = new FeedService();
         try {
             let reqQuery = req.query;
-            let response = await feedServiceInst.getAllFeedArticles(reqQuery)
+            let response = await feedServiceInst.getAllFeedArticles(reqQuery);
             res.send(response);
         }
         catch (err) {

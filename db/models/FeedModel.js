@@ -22,6 +22,10 @@ class FeedModel {
             filter.authorName = searchOptions.authorName;
         }
         if (sortOptions.sortBy) {
+            if (sortOptions.sortBy === "author_name")
+                sortOptions.sortBy = "authorName";
+            if (sortOptions.sortBy === "created_at")
+                sortOptions.sortBy = "createdAt";
             if (sortOptions.sortOrder === "asc") {
                 sort = {};
                 sort[sortOptions.sortBy] = 1;
@@ -31,7 +35,13 @@ class FeedModel {
                 sort[sortOptions.sortBy] = -1;
             }
         }
-        let result = await model.find(filter, undefined, sort).exec();
+        let result = await model.find(filter, undefined).sort(sort).exec();
+        return result;
+    }
+
+    async createArticle(record) {
+        let model = this.getModel();
+        let result = await model.create(record);
         return result;
     }
 }

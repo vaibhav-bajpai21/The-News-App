@@ -7,7 +7,6 @@ module.exports = (Schema) => {
         userName: {
             type: String,
             required: true,
-            unique: true,
             trim: true
         },
         email: {
@@ -51,10 +50,12 @@ module.exports = (Schema) => {
         timeOfBirth: {
             type: TimeOfBirthSchema
         },
-        // profileImage: {
-        //     type: String,
-        //     required: true,
-        // }
+        profileImage: {
+            data: Buffer,
+            type: String,
+            required: true,
+            trim: true
+        }
     },
         {
             timestamps: true
