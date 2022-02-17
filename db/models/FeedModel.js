@@ -7,7 +7,7 @@ class FeedModel {
             }
     }
 
-    async findAllFeeds(searchOptions, sortOptions) {
+    async findAllFeeds(searchOptions, sortOptions, skip, limit) {
         let filter = {};
         let sort = { "createdAt": -1 };
         let model = this.getModel();
@@ -35,7 +35,8 @@ class FeedModel {
                 sort[sortOptions.sortBy] = -1;
             }
         }
-        let result = await model.find(filter, undefined).sort(sort).exec();
+        console.log(skip,limit)
+        let result = await model.find(filter, undefined).sort(sort).skip(skip).limit(limit).exec();
         return result;
     }
 

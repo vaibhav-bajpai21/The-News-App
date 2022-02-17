@@ -12,6 +12,8 @@ class FeedService {
         try {
             let filter = {};
             let sortOptions = {};
+            let skip = (reqQuery.skip && reqQuery.skip >= 0) ? reqQuery.skip : 0;
+            let limit = (reqQuery.limit && reqQuery.limit >= 0) ? reqQuery.limit : 10;
             if (reqQuery.headline) {
                 filter.headline = reqQuery.headline;
             }
@@ -26,7 +28,7 @@ class FeedService {
                 sortOptions.sortBy = reqQuery.sort_by || "createdAt";
                 sortOptions.sortOrder = reqQuery.sort_order || "desc";
             }
-            let feedArticles = await this.feedModelInst.findAllFeeds(filter, sortOptions);
+            let feedArticles = await this.feedModelInst.findAllFeeds(filter, sortOptions, skip, limit);
             let response = [];
             _.forEach(feedArticles, (feedArticle) => {
                 let object = {};
@@ -71,22 +73,22 @@ class FeedService {
         }
     }
 
-    async getAllCategories(fieldToBePresentInOutput){
-        try{
+    async getAllCategories(fieldToBePresentInOutput) {
+        try {
             let feedValues = await this.feedModelInst.findbyfields(fieldToBePresentInOutput);
             return Promise.resolve({
                 data: feedValues,
                 status: "Success"
             });
         }
-        catch(err){
+        catch (err) {
             console.log("----error in getAllCategories----", err);
             return Promise.reject({
                 status: "Error",
                 message: "DB Error"
             })
         }
-        
+
     }
 }
 module.exports = FeedService;
