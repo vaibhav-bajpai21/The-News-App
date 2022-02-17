@@ -1,0 +1,1 @@
+This folder stores all the image files uploaded on the server
