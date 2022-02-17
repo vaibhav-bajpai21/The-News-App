@@ -16,9 +16,9 @@ let validationRules = {
             return false;
         },
         isValidDateOfBirth: (val) => {
-            val=JSON.parse(val);
-            if (val.hasOwnProperty("day") && val.hasOwnProperty("month") && val.hasOwnProperty("year")) {
-                val = new Date(val.day, val.month, val.year);
+            let values = val.split("-");
+            if (values.length === 3) {
+                val = new Date(values[0], values[1], values[2]);
                 if (isNaN(Date.parse(val)))
                     return false;
                 return true;
@@ -26,8 +26,10 @@ let validationRules = {
             return false;
         },
         isValidTimeOfBirth: (val) => {
-            val=JSON.parse(val);
-            if (val.hasOwnProperty("value") && val.hasOwnProperty("meridiem") && ["AM","PM"].includes(val.meridiem)) {
+            let values = val.split(" ");
+            let timeValues = values[0].split(":");
+            if (["AM", "PM"].includes(values[1]) && (timeValues[0] >= 0 && timeValues[1] >= 0)
+                && (timeValues[0] <= 12 && timeValues[1] <= 60)) {
                 return true;
             }
             return false;

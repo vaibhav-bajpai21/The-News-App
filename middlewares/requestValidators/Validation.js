@@ -77,7 +77,7 @@ const createUserValidate = checkSchema({
         errorMessage: "date_of_birth is Mandatory",
         custom: {
             options: validationRules.isValidDateOfBirth,
-            errorMessage: "date_of_birth should be an object with following keys with number values: day, month, year"
+            errorMessage: "date_of_birth should be a string of the format: day-month-year"
         }
     },
     "time_of_birth": {
@@ -85,7 +85,7 @@ const createUserValidate = checkSchema({
         errorMessage: "time_of_birth is Mandatory",
         custom: {
             options: validationRules.isValidTimeOfBirth,
-            errorMessage: "time_of_birth should be an object with following keys: value,meridiem(AM/PM)"
+            errorMessage: "time_of_birth should be a string of the format: xx:xx AM/PM"
         }
     }
 });

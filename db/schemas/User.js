@@ -1,5 +1,4 @@
 const { Schema } = require("mongoose");
-const TimeOfBirthSchema = require("../sub_schemas/TimeOfBirthSchema");
 
 //Username, Email, Password, Phone Number, Date of Birth, Time of Birth , Gender, Marital Status, Language and Profile picture
 module.exports = (Schema) => {
@@ -48,7 +47,9 @@ module.exports = (Schema) => {
             required: true
         },
         timeOfBirth: {
-            type: TimeOfBirthSchema
+            type: String,
+            required: true,
+            trim: true
         },
         profileImage: {
             type: String,

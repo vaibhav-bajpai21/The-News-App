@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
         cb(null, imageDestinationFolder);
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname + '-' + Date.now())
+        cb(null, Date.now() + path.extname(file.originalname))
     }
 });
 
@@ -20,7 +20,7 @@ function loadRoutes(app) {
     app.post("/register", upload, requestValidator.createUserValidate, requestValidator.rejectIfInvalid, async (req, res) => {
         const profileServiceInst = new ProfileService();
         try {
-            let { day, month, year } = JSON.parse(req.body.date_of_birth);
+            let [day, month, year]  = req.body.date_of_birth.split("-");
 
             let dateOfBirth = new Date(day, month, year);
             let reqQuery = {
@@ -32,7 +32,7 @@ function loadRoutes(app) {
                 language: req.body.language,
                 maritalSatus: req.body.marital_status,
                 dateOfBirth: dateOfBirth,
-                timeOfBirth: JSON.parse(req.body.time_of_birth)
+                timeOfBirth: req.body.time_of_birth
             }
             let response = await profileServiceInst.saveUserInfo(reqQuery, req.files);
             res.send(response);
