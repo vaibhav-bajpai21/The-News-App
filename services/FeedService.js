@@ -55,8 +55,7 @@ class FeedService {
     async createArticle(requestObject, files) {
         try {
             let thumbnailObject = _.find(files, (file) => (file.fieldname === "thumbnail"));
-            let thumbnail = fs.readFileSync(thumbnailObject.path);
-            requestObject.thumbnailImage = thumbnail;
+            requestObject.thumbnailImage = thumbnailObject.filename;
             let feedArticles = await this.feedModelInst.createArticle(requestObject);
             let response = _.pick(feedArticles, ["headline", "category", "authorName", "createdAt"]);
             return Promise.resolve({

@@ -34,8 +34,7 @@ class FeedModel {
                 sort = {};
                 sort[sortOptions.sortBy] = -1;
             }
-        }
-        console.log(skip,limit)
+        };
         let result = await model.find(filter, undefined).sort(sort).skip(skip).limit(limit).exec();
         return result;
     }

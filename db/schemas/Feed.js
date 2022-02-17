@@ -3,7 +3,6 @@ const { Schema } = require("mongoose");
 module.exports = (Schema) => {
     const feedSchema = new Schema({
         thumbnailImage: {
-            data: Buffer,
             type: String,
             required: true,
             trim: true

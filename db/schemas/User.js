@@ -51,7 +51,6 @@ module.exports = (Schema) => {
             type: TimeOfBirthSchema
         },
         profileImage: {
-            data: Buffer,
             type: String,
             required: true,
             trim: true
