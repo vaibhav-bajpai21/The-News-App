@@ -29,7 +29,7 @@ function loadRoutes(app) {
         }
     })
     /* Api to gt all the authors of feed articles */
-    app.get("/author_name", async (req, res) => {
+    app.get("/authors", async (req, res) => {
         const feedServiceInst = new FeedService();
         try {
             let response = await feedServiceInst.getAllCategories("authorName");

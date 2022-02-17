@@ -47,7 +47,7 @@ class FeedModel {
 
     async findbyfields(fieldsToBeReturned) {
         let model = this.getModel();
-        let result = await model.find({}, fieldsToBeReturned).exec();
+        let result = await model.find({}, fieldsToBeReturned).distinct(fieldsToBeReturned).exec();
         return result;
     }
 }

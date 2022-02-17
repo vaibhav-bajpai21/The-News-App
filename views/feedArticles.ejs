@@ -26,13 +26,16 @@
                                 <img src=\<%=element.thumbnail_image %> alt="Thumbnail Image" width="200" height="100">
                             </td>
                             <td>
+                                <strong><i>Headline: </i></strong>
                                 <strong>
                                     <%= element.headline %>
                                 </strong> <br>
-                                <i>category:</i>
+                                <i>Category: </i>
                                 <%= element.category %> <br>
-                                    <i>author_name:</i>
+                                    <i>Author Name: </i>
                                     <%= element.author_name %> <br>
+                                <i>Uploaded At: </i>
+                                <%= element.created_at %> <br>
                             </td>
                         </tr>
 

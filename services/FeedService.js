@@ -36,6 +36,7 @@ class FeedService {
                 object.category = feedArticle.category;
                 object.author_name = feedArticle.authorName;
                 object.thumbnail_image = feedArticle.thumbnailImage;
+                object.created_at = feedArticle.createdAt;
                 response.push(object);
             });
             return Promise.resolve({
