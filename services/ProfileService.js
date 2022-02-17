@@ -8,10 +8,9 @@ class ProfileService {
         this.userModelInst = new UserModel();
     }
 
-    async saveUserInfo(reqQuery, files) {
+    async saveUserInfo(reqQuery, profilePictureObject) {
         try {
-            let profileObject = _.find(files, (file) => (file.fieldname === "profile_picture"));
-            reqQuery.profileImage = profileObject.filename;
+            reqQuery.profileImage = profilePictureObject.filename;
             let dbResult = await this.userModelInst.saveRecord({ email: reqQuery.email }, reqQuery);
             let response = _.pick(dbResult, ["email", "password", "gender", "language"]);
             response.user_name = dbResult.userName;
