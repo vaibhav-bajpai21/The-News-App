@@ -44,6 +44,12 @@ class FeedModel {
         let result = await model.create(record);
         return result;
     }
+
+    async findbyfields(fieldsToBeReturned) {
+        let model = this.getModel();
+        let result = await model.find({}, fieldsToBeReturned).exec();
+        return result;
+    }
 }
 
 module.exports = FeedModel;

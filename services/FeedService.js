@@ -70,5 +70,23 @@ class FeedService {
             })
         }
     }
+
+    async getAllCategories(fieldToBePresentInOutput){
+        try{
+            let feedValues = await this.feedModelInst.findbyfields(fieldToBePresentInOutput);
+            return Promise.resolve({
+                data: feedValues,
+                status: "Success"
+            });
+        }
+        catch(err){
+            console.log("----error in getAllCategories----", err);
+            return Promise.reject({
+                status: "Error",
+                message: "DB Error"
+            })
+        }
+        
+    }
 }
 module.exports = FeedService;
