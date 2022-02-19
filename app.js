@@ -4,9 +4,8 @@ const routes = require('./routes');
 const db = require("./db");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const config = require("./config");
 
-let port = config.port;
+let port = process.env.PORT;
 db.connectDatabase();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
