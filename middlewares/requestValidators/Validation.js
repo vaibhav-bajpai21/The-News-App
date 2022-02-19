@@ -90,7 +90,26 @@ const createUserValidate = checkSchema({
     }
 });
 
+const createArticleValidate = checkSchema({
+    "headline": {
+        trim: true,
+        notEmpty: true,
+        errorMessage: "headline is Mandatory"
+    },
+    "category": {
+        trim: true,
+        notEmpty: true,
+        errorMessage: "category is Mandatory"
+    },
+    "author_name": {
+        trim: true,
+        notEmpty: true,
+        errorMessage: "author_name is Mandatory"
+    }
+})
+
 module.exports = {
     createUserValidate,
+    createArticleValidate,
     rejectIfInvalid
 }
