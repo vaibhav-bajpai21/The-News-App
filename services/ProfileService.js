@@ -1,7 +1,7 @@
 const UserModel = require("../db/models/UserModel");
 const Promise = require("bluebird");
 const _ = require("lodash");
-const fs = require("fs");
+const crypto = require('crypto');
 
 class ProfileService {
     constructor() {
@@ -10,6 +10,9 @@ class ProfileService {
 
     async saveUserInfo(reqQuery, profilePictureObject) {
         try {
+            let secret = process.env.SECRET;
+            const hash = crypto.createHash('sha256', secret).update(reqQuery.password).digest("hex");
+            reqQuery.password = hash;
             reqQuery.profileImage = profilePictureObject.filename;
             let dbResult = await this.userModelInst.saveRecord({ email: reqQuery.email }, reqQuery);
             let response = _.pick(dbResult, ["email", "password", "gender", "language"]);
