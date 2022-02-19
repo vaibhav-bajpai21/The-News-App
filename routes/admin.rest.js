@@ -17,6 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).any();
 
 function loadRoutes(app) {
+    /* Api to create feed article */
     app.post("/createArticle", upload, requestValidator.createArticleValidate,
         requestValidator.rejectIfInvalid, async (req, res) => {
             const feedServiceInst = new FeedService();

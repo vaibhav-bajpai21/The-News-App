@@ -20,6 +20,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).any();
 
 function loadRoutes(app) {
+    /* Api to create user profile */
     app.post("/register", upload, requestValidator.createUserValidate, requestValidator.rejectIfInvalid, async (req, res) => {
         const profileServiceInst = new ProfileService();
         try {

@@ -38,6 +38,7 @@ function loadRoutes(app) {
             res.send(err);
         }
     })
+    
     /* Api to gt all the authors of feed articles */
     app.get("/authors", async (req, res) => {
         const feedServiceInst = new FeedService();
