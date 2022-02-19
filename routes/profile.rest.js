@@ -5,6 +5,8 @@ const _ = require("lodash");
 const path = require("path");
 const multer = require('multer');
 let imageDestinationFolder = "";
+const moment = require("moment");
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         imageDestinationFolder = path.join(__dirname, '../temp-storage');
@@ -21,7 +23,6 @@ function loadRoutes(app) {
     app.post("/register", upload, requestValidator.createUserValidate, requestValidator.rejectIfInvalid, async (req, res) => {
         const profileServiceInst = new ProfileService();
         try {
-            let [day, month, year] = req.body.date_of_birth.split("-");
             let profilePictureObject = _.find(req.files, (file) => {
                 return (file.fieldname === "profile_picture")
             });
@@ -32,7 +33,7 @@ function loadRoutes(app) {
                 });
                 return;
             }
-            let dateOfBirth = new Date(year, month, day);
+            let dateOfBirth = moment(req.body.date_of_birth,'DD-MM-YYYY');
             let reqQuery = {
                 userName: req.body.user_name,
                 email: req.body.email,

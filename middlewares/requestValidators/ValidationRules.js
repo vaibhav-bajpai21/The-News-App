@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 let validationRules = {
     custom: {
         isValidGender: (val) => {
@@ -18,10 +20,8 @@ let validationRules = {
         isValidDateOfBirth: (val) => {
             let values = val.split("-");
             if (values.length === 3) {
-                val = new Date(values[2], values[1], values[0]);
-                if (isNaN(Date.parse(val)))
-                    return false;
-                return true;
+                let isValidDate = moment(val,'DD-MM-YYYY',true).isValid();
+                return isValidDate;
             }
             return false;
         },

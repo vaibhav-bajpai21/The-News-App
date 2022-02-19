@@ -82,7 +82,7 @@ const createUserValidate = checkSchema({
         errorMessage: "date_of_birth is Mandatory",
         custom: {
             options: validationRules.isValidDateOfBirth,
-            errorMessage: "date_of_birth should be a string of the format: day-month-year"
+            errorMessage: "date_of_birth should be a valid date of the format: DD-MM-YYYY"
         }
     },
     "time_of_birth": {
