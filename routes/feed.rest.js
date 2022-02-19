@@ -7,10 +7,20 @@ function loadRoutes(app) {
         try {
             let reqQuery = req.query;
             let response = await feedServiceInst.getAllFeedArticles(reqQuery);
-            console.log(response.data);
-            res.render("../views/feedArticles", {
-                res: response.data
-            });
+            /* If API is accessed through POSTMAN, we can give Query param(response_type)
+            as "JSON" to get result in Object(JSON) format */
+            if (req.query && req.query.response_type === "JSON") {
+                res.send(response);
+                return;
+            }
+            /* For accessing the API through browser,
+            the default output format is HTML Template rendered through EJS. */
+            else {
+                res.render("../views/feedArticles", {
+                    res: response.data
+                });
+                return;
+            }
         }
         catch (err) {
             res.send(err);
