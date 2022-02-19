@@ -3,13 +3,14 @@ MAINTAINER Vaibhav Bajpai
 
 LABEL description = "Docker file for News App Assignment"
 
-RUN mkdir -p usr/src/logs
+RUN mkdir -p /usr/src/logs
 WORKDIR /usr/src
 ADD . /usr/src
 
 RUN mkdir -p /logs
 
 RUN apk update && apk upgrade
+RUN npm i
 
 EXPOSE 3000
 
