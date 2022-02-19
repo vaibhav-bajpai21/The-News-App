@@ -1,6 +1,5 @@
 const { checkSchema, validationResult } = require("express-validator");
 const validationRules = require("./ValidationRules");
-const Promise = require("bluebird");
 
 var rejectIfInvalid = (req, res, next) => {
     let err = validationResult(req).array();
@@ -28,22 +27,28 @@ const createUserValidate = checkSchema({
         trim: true,
         notEmpty: true,
         errorMessage: "email is Mandatory",
-        isEmail: true,
-        errorMessage: "Please enter a valid email"
+        isEmail: {
+            bail: true,
+            errorMessage: "Please enter a valid email"
+        },
     },
     "password": {
         trim: true,
         notEmpty: true,
         errorMessage: "password is Mandatory",
         isLength: {
-            min: 8
+            errorMessage: 'Password should be at least 8 chars long',
+            options: { min: 8 },
         },
-        errorMessage: "password should be of minimum 8 characters"
     },
     "phone_number": {
         trim: true,
         notEmpty: true,
         errorMessage: "phone_number is Mandatory",
+        custom: {
+            options: validationRules.isValidPhoneNumber,
+            errorMessage: "phone_number should be a valid number",
+        },
     },
     "gender": {
         trim: true,

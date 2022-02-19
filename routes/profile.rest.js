@@ -32,7 +32,7 @@ function loadRoutes(app) {
                 });
                 return;
             }
-            let dateOfBirth = new Date(day, month, year);
+            let dateOfBirth = new Date(year, month, day);
             let reqQuery = {
                 userName: req.body.user_name,
                 email: req.body.email,

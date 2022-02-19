@@ -18,7 +18,7 @@ let validationRules = {
         isValidDateOfBirth: (val) => {
             let values = val.split("-");
             if (values.length === 3) {
-                val = new Date(values[0], values[1], values[2]);
+                val = new Date(values[2], values[1], values[0]);
                 if (isNaN(Date.parse(val)))
                     return false;
                 return true;
@@ -33,6 +33,12 @@ let validationRules = {
                 return true;
             }
             return false;
+        },
+        isValidPhoneNumber: (val) => {
+            val = Number(val);
+            if (isNaN(val) || val < 0)
+                return false;
+            return true;
         }
     }
 }
